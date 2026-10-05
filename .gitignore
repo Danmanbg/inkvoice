@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+
+# Your private settings (API keys!) and local data
+settings.toml
+pronunciations.txt
+voices/*.wav
+models/
+*(audiobook)/
+voice samples/
+Audiobooks/
+
+# Audio / books you convert
+*.m4b
+*.mp3
+*.wav
+*.flac
+*.epub
+*.pdf
+!tests/data/*.pdf
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.claude/

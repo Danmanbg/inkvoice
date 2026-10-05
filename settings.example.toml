@@ -1,0 +1,73 @@
+# Copy this file to settings.toml and change what you like.
+# Anything you leave out uses the default shown here.
+
+[general]
+engine = "kokoro"            # kokoro | chatterbox | gemini | elevenlabs
+director = "heuristic"       # heuristic (free) | claude (smarter, needs an Anthropic key)
+mode = "cast"                # cast = a voice per character | single = one narrator for all
+formats = ["m4b"]            # "m4b" and/or "mp3"
+output_dir = ""              # empty = a "<book> (audiobook)" folder next to the book
+models_dir = ""              # empty = ~/.cache/inkvoice/models
+voices_dir = "voices"        # reference clips for Chatterbox voice cloning
+pronunciations = "pronunciations.txt"
+drop_dialogue_tags = false   # cast mode: skip bare "he said." tags
+
+[text]
+pages = ""                   # e.g. "9-310" to skip front/back matter in a PDF
+keep_footnotes = false
+
+[audio]
+bitrate = "64k"              # AAC bitrate of the .m4b (64k mono is audiobook standard)
+target_lufs = -18.0          # loudness of the finished book
+level_db = -20.0             # level every line is matched to before mixing
+
+[pauses]                     # seconds
+speaker_change = 0.22
+paragraph = 0.65
+after_heading = 1.2
+scene_break = 1.8
+chapter_end = 2.2
+chapter_start = 0.6
+
+[qa]
+enabled = false              # transcribe every line with Whisper and retake bad ones
+threshold = 0.25             # fraction of words allowed to differ
+retakes = 2
+
+[kokoro]
+narrator = "af_heart"        # try: am_michael, bm_george, bf_emma, af_bella ... (inkvoice voices)
+speed = 1.0
+emotion_pace = 1.0           # how much emotion changes the pace (0 = never)
+workers = 2                  # lines rendered at the same time
+threads = 0                  # torch threads per line (0 = automatic)
+
+[chatterbox]
+variant = "standard"         # standard (emotion control) | turbo (faster)
+narrator = "default"         # "default", a file in voices_dir, or k:<kokoro voice>
+exaggeration = 0.5           # base expressiveness
+emotion_strength = 1.0       # how far emotions push it
+temperature = 0.8
+device = ""                  # "" = cuda if available else cpu
+
+[gemini]
+api_key = ""                 # or set GEMINI_API_KEY  (https://aistudio.google.com/apikey)
+model = "gemini-3.8-flash-tts"
+narrator = "Charon"          # 30 voices: Kore, Algieba, Sulafat, Gacrux, Algenib ...
+narrator_style = "a warm, engaging audiobook narrator"
+parallel = 4
+
+[elevenlabs]
+api_key = ""                 # or set ELEVENLABS_API_KEY
+model = "eleven_v4"          # eleven_v4 | eleven_v4_turbo (half price)
+narrator = ""                # voice name or id from your ElevenLabs library
+stability = 0.5              # lower = more expressive, higher = steadier
+similarity = 0.75
+style = 0.0
+speed = 1.0
+parallel = 3
+
+[claude]
+api_key = ""                 # or set ANTHROPIC_API_KEY  (https://console.anthropic.com/)
+model = "claude-opus-5-5"    # claude-sonnet-5-5 is about half the price
+effort = "low"               # low | medium | high
+parallel = 4                 # chapters directed at the same time

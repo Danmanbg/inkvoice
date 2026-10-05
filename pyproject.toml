@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "inkvoice"
+version = "0.1.0"
+description = "Turn PDF, EPUB and TXT books into expressive, multi-voice audiobooks (M4B with chapters)."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [{ name = "Danmanbg" }]
+keywords = ["audiobook", "tts", "text-to-speech", "pdf", "epub", "kokoro", "chatterbox", "m4b"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+]
+dependencies = [
+    "numpy",
+    "pdfplumber>=0.11",
+    "pypdfium2>=4",
+    "soundfile>=0.12",
+    "requests",
+    "pillow",
+]
+
+[project.optional-dependencies]
+# Kokoro needs Python 3.10-3.12
+kokoro = ["kokoro>=0.9.4", "misaki[en]>=0.9.4"]
+# chatterbox's watermarker still imports pkg_resources (removed in setuptools 81)
+chatterbox = ["chatterbox-tts>=0.1.7", "setuptools<81"]
+claude = ["anthropic>=1.0"]
+gui = ["gradio>=5"]
+qa = ["faster-whisper>=1.1"]
+all = ["inkvoice[kokoro,chatterbox,claude,gui,qa]"]
+dev = ["pytest"]
+
+[project.scripts]
+inkvoice = "inkvoice.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["inkvoice*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

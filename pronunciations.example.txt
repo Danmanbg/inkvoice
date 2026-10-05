@@ -1,0 +1,9 @@
+# Copy to pronunciations.txt. One entry per line:  Word = how to say it
+#
+#   respelling  -> used by every engine
+#   /IPA/       -> used by Kokoro (other engines keep the original word)
+#
+# Examples:
+Aoife = EE-fa
+Siobhan = shi-VAWN
+Niamh = /niːv/
